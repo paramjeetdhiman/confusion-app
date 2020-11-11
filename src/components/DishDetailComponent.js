@@ -33,7 +33,7 @@ const DishDetailedComponent = ({ dish }) => {
           ))}
         </div>
       </div>
-    </div>
+    </div>  
   );
 };
 

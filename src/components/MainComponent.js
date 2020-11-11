@@ -12,7 +12,6 @@ const Main = () => {
     setSelectedDish(dishId);
   };
 
-  console.log(selectedDish);
   return (
     <div className="App">
       <Navbar dark color="primary">

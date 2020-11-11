@@ -4,7 +4,6 @@ import { Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap';
 const DishDetailedComponent = ({ dish }) => {
   const comments = dish.comments.map((item) => item);
 
-  console.log(comments);
   return (
     <div className="container">
       <div className="row">
@@ -17,9 +16,9 @@ const DishDetailedComponent = ({ dish }) => {
             </CardBody>
           </Card>
         </div>
+
         <div className="col-md-5">
           <h4>Comments</h4>
-
           {comments.map((item) => (
             <div key={item.id}>
               <h6>{item.comment}</h6>

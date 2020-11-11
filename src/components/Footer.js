@@ -7,7 +7,7 @@ import {
   FaYoutube,
   FaLinkedin,
 } from 'react-icons/fa';
-
+import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <>
@@ -18,16 +18,16 @@ const Footer = () => {
               <h5>Links</h5>
               <ul className="list-unstyled">
                 <li>
-                  <a href="#">Home</a>
+                  <Link to="/home">Home</Link>
                 </li>
                 <li>
-                  <a href="#">About</a>
+                  <Link to="/about">About</Link>
                 </li>
                 <li>
-                  <a href="#">Menu</a>
+                  <Link to="/menu">Menu</Link>
                 </li>
                 <li>
-                  <a href="contactus.html">Contact</a>
+                  <Link to="/contact">Contact</Link>
                 </li>
               </ul>
             </div>

@@ -6,6 +6,8 @@ import {
   FaEnvelope,
   FaYoutube,
   FaLinkedin,
+  FaPhoneAlt,
+  FaFax,
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 const Footer = () => {
@@ -40,11 +42,11 @@ const Footer = () => {
                 <br />
                 HONG KONG
                 <br />
-                <i className="fa fa-phone fa-lg"></i>: +852 1234 5678
+                <FaPhoneAlt />: +852 1234 5678
                 <br />
-                <i className="fa fa-fax fa-lg"></i>: +852 8765 4321
+                <FaFax />: +852 8765 4321
                 <br />
-                <i className="fa fa-envelope fa-lg"></i>:{' '}
+                <FaEnvelope />:
                 <a href="mailto:confusion@food.net">confusion@food.net</a>
               </address>
             </div>

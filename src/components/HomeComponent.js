@@ -29,10 +29,10 @@ const Home = ({ leader, dish, promotion }) => {
       <div className="row align-items-start">
         <div className="col-12 col-md m-1">
           <RenderCard item={dish} />
-        </div>{' '}
+        </div>
         <div className="col-12 col-md m-1">
           <RenderCard item={promotion} />
-        </div>{' '}
+        </div>
         <div className="col-12 col-md m-1">
           <RenderCard item={leader} />
         </div>

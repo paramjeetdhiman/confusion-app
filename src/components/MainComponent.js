@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
-import DishDetailComponent from './DishDetailComponent';
+import DishDetail from './DishDetailComponent';
 import { DISHES } from '../shared/dishes';
 import Header from './Header';
 import Footer from './Footer';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import Contact from './Contact';
 import { COMMENTS } from '../shared/comments';
 import { LEADERS } from '../shared/leaderes';
 import { PROMOTIONS } from '../shared/promotions';
+import About from './AboutComponent';
 
 const Main = () => {
   const [dishes, _] = useState(DISHES);
@@ -17,11 +18,19 @@ const Main = () => {
   const [promotions, setPromotions] = useState(PROMOTIONS);
   const [leaders, setLeaders] = useState(LEADERS);
 
-  const [selectedDish, setSelectedDish] = useState(0);
+  function DishWithId() {
+    let { dishId } = useParams();
 
-  const onDishSelect = (dishId) => {
-    setSelectedDish(dishId);
-  };
+    return (
+      <DishDetail
+        dish={dishes.filter((dish) => dish.id === parseInt(dishId, 10))[0]}
+        comments={comments.filter(
+          (comment) => comment.dishId === parseInt(dishId, 10)
+        )}
+      />
+    );
+  }
+
   return (
     <>
       <Header />
@@ -36,13 +45,10 @@ const Main = () => {
             />
           }
         />
-        <Route
-          path="/menu"
-          element={
-            <Menu dishes={dishes} onClick={(dishId) => onDishSelect(dishId)} />
-          }
-        />
+        <Route path="/menu" element={<Menu dishes={dishes} />} />
+        <Route path="/menu/:dishId" element={<DishWithId />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About leaders={leaders} />} />
         <Navigate to="/home" />
       </Routes>
       <Footer />

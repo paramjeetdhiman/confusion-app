@@ -13,6 +13,7 @@ import {
   Button,
   FormGroup,
   Form,
+  FormFeedback,
   Label,
   Input,
   Col,
@@ -27,6 +28,12 @@ const Contact = () => {
     agree: false,
     contactType: 'Tel.',
     message: '',
+    touched: {
+      firstName: false,
+      lastName: false,
+      phone: false,
+      email: false,
+    },
   });
 
   const handleInputChange = (e) => {
@@ -39,10 +46,60 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Current state is : ' + JSON.stringify(person));
-    alert('Current state is : ' + JSON.stringify(person));
+  };
+
+  const handleBlur = (field) => (evt) => {
+    setPerson({
+      ...person,
+      touched: {
+        ...person.touched,
+        [field]: true,
+      },
+    });
   };
 
   console.log(person);
+
+  const validate = (firstName, lastName, phone, email) => {
+    const errors = {
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+    };
+    if (person.touched.firstName && firstName.length < 3)
+      errors.firstName = 'First Name  should be >= 3 characters';
+    else if (person.touched.firstName && firstName.length > 10) {
+      errors.firstName = 'First Name  should be <= 10 characters';
+    }
+
+    if (person.touched.lastName && lastName.length < 3)
+      errors.lastName = 'Last Name  should be >= 3 characters';
+    else if (person.touched.lastName && lastName.length > 10) {
+      errors.lastName = 'Last Name  should be <= 10 characters';
+    }
+
+    const reg = /^\d+$/; // string of characters should be number
+    if (person.touched.phone && !reg.test(phone)) {
+      errors.phone = 'Phone number should contain only numbers';
+    }
+
+    if (
+      person.touched.email &&
+      email.split('').filter((x) => x === '@').length !== 1
+    ) {
+      errors.email = 'Email should contain  @ symbol.';
+    }
+
+    return errors;
+  };
+
+  const errors = validate(
+    person.firstName,
+    person.lastName,
+    person.phone,
+    person.email
+  );
 
   return (
     <div className="container">
@@ -91,7 +148,7 @@ const Contact = () => {
               href="tel:+85212345678">
               <FaPhoneAlt /> Call
             </a>
-            <a role="button" className="btn btn-info">
+            <a role="button" className="btn btn-info" href="/">
               <FaSkype /> Skype
             </a>
             <a
@@ -119,10 +176,14 @@ const Contact = () => {
                   type="text"
                   id="firstName"
                   name="firstName"
+                  valid={errors.firstName === ''}
+                  invalid={errors.firstName !== ''}
                   placeholder="First Name"
                   value={person.firstName}
+                  onBlur={handleBlur('firstName')}
                   onChange={handleInputChange}
                 />
+                <FormFeedback>{errors.firstName}</FormFeedback>
               </Col>
             </FormGroup>
 
@@ -135,10 +196,14 @@ const Contact = () => {
                   type="text"
                   id="lastName"
                   name="lastName"
+                  valid={errors.lastName === ''}
+                  invalid={errors.lastName !== ''}
                   placeholder="Last Name"
                   value={person.lastName}
+                  onBlur={handleBlur('lastName')}
                   onChange={handleInputChange}
                 />
+                <FormFeedback>{errors.lastName}</FormFeedback>
               </Col>
             </FormGroup>
 
@@ -152,9 +217,13 @@ const Contact = () => {
                   id="phone"
                   name="phone"
                   placeholder="Phone Number"
+                  valid={errors.phone === ''}
+                  invalid={errors.phone !== ''}
                   value={person.phone}
+                  onBlur={handleBlur('phone')}
                   onChange={handleInputChange}
                 />
+                <FormFeedback>{errors.phone}</FormFeedback>
               </Col>
             </FormGroup>
 
@@ -167,10 +236,14 @@ const Contact = () => {
                   type="email"
                   id="email"
                   name="email"
+                  valid={errors.email === ''}
+                  invalid={errors.email !== ''}
                   placeholder="Email"
+                  onBlur={handleBlur('email')}
                   value={person.email}
                   onChange={handleInputChange}
                 />
+                <FormFeedback>{errors.email}</FormFeedback>
               </Col>
             </FormGroup>
 

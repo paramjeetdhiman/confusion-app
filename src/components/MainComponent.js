@@ -1,23 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetailComponent';
-import { DISHES } from '../shared/dishes';
+import Contact from './Contact';
+import About from './AboutComponent';
 import Header from './Header';
 import Footer from './Footer';
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
-import Contact from './Contact';
-import { COMMENTS } from '../shared/comments';
-import { LEADERS } from '../shared/leaderes';
-import { PROMOTIONS } from '../shared/promotions';
-import About from './AboutComponent';
+import { connect } from 'react-redux';
 
-const Main = () => {
-  const [dishes, _] = useState(DISHES);
-  const [comments, setComments] = useState(COMMENTS);
-  const [promotions, setPromotions] = useState(PROMOTIONS);
-  const [leaders, setLeaders] = useState(LEADERS);
-
+const Main = ({ dishes, comments,  leaders, promotions }) => {
   function DishWithId() {
     let { dishId } = useParams();
 
@@ -56,4 +48,15 @@ const Main = () => {
   );
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+  };
+};
+
+
+
+export default connect(mapStateToProps)(Main);

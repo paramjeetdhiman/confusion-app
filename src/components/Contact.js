@@ -58,8 +58,6 @@ const Contact = () => {
     });
   };
 
-  console.log(person);
-
   const validate = (firstName, lastName, phone, email) => {
     const errors = {
       firstName: '',
